@@ -3,6 +3,9 @@
 
 #include "graphics.h"
 
+/*
+ * Set default values for SDL2 variables
+ */
 gfx_engine::gfx_engine()
 {
     camera = point(0.0,0.0);
@@ -15,13 +18,18 @@ gfx_engine::gfx_engine()
     }
 }
 
+/*
+ * Free graphics memory 
+ */
 gfx_engine::~gfx_engine()
 {
     std::cout << "IN GFX DESTR\n";
     freeSDL();
 }
 
-// initialize SDL2
+/*
+ * Initialize SDL2
+ */
 bool gfx_engine::initSDL()
 {
     // initialize all of SDL2's utilities/mechanisms etc...
@@ -62,7 +70,9 @@ bool gfx_engine::initSDL()
 }
 
 
-// free/destroy graphics ptr objects
+/*
+ * free/destroy graphics ptr objects
+ */
 void gfx_engine::freeSDL()
 {
     for (int i = 0; i < NUM_TOTAL_TEXTURES; ++i)
@@ -95,6 +105,10 @@ void gfx_engine::freeSDL()
     SDL_Quit();
 }
 
+/*
+ * Render given subarea (row, frame, textureArea) of texture object in memory and place it at a specific
+ * location (loc) on the window. Place it on the screen taking up a specific area on the window (possible stretched)
+ */
 void gfx_engine::renderSprite(SDL_Texture *texture, point loc, point textureArea, point area, int frame, int row, SDL_RendererFlip orientation, bool parallax, SDL_Color col_multval, int scale)
 {
     SDL_Rect rect;
@@ -127,8 +141,10 @@ void gfx_engine::renderSprite(SDL_Texture *texture, point loc, point textureArea
     SDL_SetTextureColorMod(texture,255,255,255);
 }
 
-// print a string (sval) to the screen one bitmap character at a time
-// at location (x,y) with color col.
+/*
+ * print a string (sval) to the screen one bitmap character at a time
+ * at location (x,y) with color col.
+ */
 void gfx_engine::addBitmapString(SDL_Color col, std::string string_val, point loc)
 {
     int ascii_val = 0;
@@ -140,7 +156,9 @@ void gfx_engine::addBitmapString(SDL_Color col, std::string string_val, point lo
     }
 }
 
-// render portion of font_bitmap to screen with color col
+/*
+ * render portion of font_bitmap to screen with color col
+ */
 void gfx_engine::addBitmapCharacter(SDL_Color col, int ascii_val, point loc)
 {
     SDL_Rect rect;
@@ -171,12 +189,17 @@ void gfx_engine::drawRectangle(SDL_Color c, point loc, point area)
     SDL_RenderFillRect(renderer,&rect);
 }
 
-// clear screen to black
+/*
+ * Clear sceen to black
+ */
 void gfx_engine::clearScreen()
 {
     SDL_RenderClear(renderer);
 }
 
+/*
+ * move camera determining what portion of the level (play area) should be rendered
+ */
 void gfx_engine::updateCamera(point center, point current_level_size)
 {
     camera = addPoints(center,point(-1.0*(double)WINDOW_WIDTH/(4.0),-1.0*(double)WINDOW_HEIGHT/(4.0)));
@@ -193,17 +216,25 @@ void gfx_engine::updateCamera(point center, point current_level_size)
     camera = multPoints(camera, point(2.0,2.0));
 }
 
+/*
+ * Return point representing location of play area to be displayed
+ */
 point gfx_engine::getCamera()
 {
     return camera;
 }
 
-// update display
+/*
+ * Update display
+ */
 void gfx_engine::updateScreen()
 {
     SDL_RenderPresent(renderer);
 }
 
+/*
+ * Get texture object from list of texture files
+ */
 SDL_Texture* gfx_engine::getTexture(int i)
 {
     return textures[i];
