@@ -4,6 +4,10 @@ Copyright Eric Wolfson 2016-2023
 
 A fast-paced 2D platformer with roguelike elements written in C++11.
 
+Watch the game at:
+https://www.youtube.com/@pandemazium1632/videos
+or search "Pandemazium" on youtube
+
 ------------------------------------------
 
 ![Alt text](/screenshots/screenshot1.jpg?raw=true "Screenshot1")
