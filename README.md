@@ -1,6 +1,6 @@
 Pandemazium.
 
-Copyright Eric Wolfson 2016-2023
+Copyright 2016-2023
 
 A fast-paced 2D platformer with roguelike elements written in C++11.
 
